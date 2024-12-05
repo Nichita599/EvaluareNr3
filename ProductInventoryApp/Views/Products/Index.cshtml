@@ -1,0 +1,58 @@
+﻿@model IEnumerable<ProductInventoryApp.Models.Product>
+@{
+    var mostExpensiveProduct = ViewBag.MostExpensiveProduct as ProductInventoryApp.Models.Product;
+}
+
+<div class="product-table-container">
+    <h1>Lista produselor</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Denumire</th>
+                <th>Producător</th>
+                <th>Preț</th>
+                <th>Stoc</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr class="@(mostExpensiveProduct != null && product.Id == mostExpensiveProduct.Id ? "most-expensive-product" : "")">
+                    <td>@product.Id</td>
+                    <td>@product.Name</td>
+                    <td>@product.Manufacturer</td>
+                    <td>@product.Price</td>
+                    <td>@product.Stock</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @if (mostExpensiveProduct != null)
+    {
+        <div class="product-highlight-box">
+            <h2>Cel mai scump produs</h2>
+            <p>
+                <strong>Denumire:</strong> @mostExpensiveProduct.Name <br />
+                <strong>Producător:</strong> @mostExpensiveProduct.Manufacturer <br />
+                <strong>Preț:</strong> @mostExpensiveProduct.Price LEI
+            </p>
+        </div>
+    }
+    @if (ViewBag.CheapestProduct != null)
+    {
+        var cheapestProduct = ViewBag.CheapestProduct as ProductInventoryApp.Models.Product;
+
+        <div class="product-highlight-box">
+            <h2>Cel mai ieftin produs</h2>
+            <p>
+                <strong>Denumire:</strong> @cheapestProduct.Name <br />
+                <strong>Producător:</strong> @cheapestProduct.Manufacturer <br />
+                <strong>Preț:</strong> @cheapestProduct.Price LEI
+            </p>
+        </div>
+    }
+
+</div>
